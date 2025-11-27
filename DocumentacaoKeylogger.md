@@ -136,3 +136,27 @@ O bloco final configura o monitoramento do teclado:
 
 * listener.join(): Inicia o listener em uma thread separada e mantém o programa principal em execução até que o listener seja interrompido (normalmente por um erro ou por uma interrupção manual).
 
+# `Passos para tornar o keylogger invisível`
+
+Tornando o Keylogger invisivel para o usuário, onde ele continurá rodando e monitorando o uso do teclado, sem exibir nenhuma interface ou janela. Este é o comportamento de um malware real.
+
+### Passo 1:
+O primeiro passo é alterar a extensão do arquivo `.py` para `.pyw`. No windows, os arquivos **pyw** são sripts python que rodam em segundo plano sem a necessidade de abrir o terminal. Isto é uma funcionalidade nativa do python no windows.
+
+Dentro do temrinal, utiliza o comando *ren .\keylogger.py .\keylogger.pyw* alterando a extensão do arquivo de *py* para *pyw*. Outra forma de alterar é manualmente no arquivo com a opção de renomerar. 
+
+* Quando rodar o script *python .\keylogger.pyw* nenhuma janela irá abrir e nenhuma informação sobre a execução irá abrir. Isso torna a execução silenciosa e continua monitorando toda utilização do teclado.
+
+# `Passos para transmissão dos arquivos via E-mail `
+O objetivo é tornar o keylogger mais parecido como em um ataque real. Alem de roubar as informações o malware envia os arquivos sequestrados via e-mail onde pode-se chantagear o usuário atacado.
+
+### Passo 1:
+
+* Criar uma conta de email específica para testes;
+
+* Ativar a verificação de duas etapas do email de testes;
+
+* Criar e Usar chave de acesso para confirmar usuário;
+
+    * [My Account Google](https://myaccount.google.com/apppassword)
+
