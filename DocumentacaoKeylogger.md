@@ -160,7 +160,9 @@ O objetivo é tornar o keylogger mais parecido como em um ataque real. Alem de r
 
     * [My Account Google](https://myaccount.google.com/apppassword)
 
-### Passo 2:
+# `Passos para enviar os dados obtidos por email`
+
+### Passo 1:
 Exportando os dados em um ambiente controlado
 
 1. Utilização da biblioteca SMTPLIB
@@ -256,3 +258,36 @@ with keyboard.Listener(on_press=on_press) as listener:
     listener.join()  # Mantém o script principal rodando enquanto o listener estiver ativo
 
 ```
+# `Como se proteger?`
+
+A proteção contra keyloggers exige uma abordagem em camadas, combinando software de segurança, vigilância pessoal e o uso de ferramentas de autenticação seguras. A criação, distribuição ou uso de keyloggers sem consentimento explícito do proprietário do sistema é ilegal e antiética na maioria das jurisdições. Essas ferramentas são comumente classificadas como malware (software malicioso).
+
+## Como se Proteger de Keyloggers
+
+1. Utilize Software de Segurança Confiável
+
+* Antivírus e Anti-Malware: Mantenha um programa de segurança robusto (como Microsoft Defender, Bitdefender, Norton, ou Malwarebytes) instalado e sempre atualizado. Esses programas são projetados para detectar e remover keyloggers conhecidos.
+
+* Firewall: Um firewall bem configurado monitora o tráfego de rede e pode bloquear tentativas de um keylogger enviar dados (como e-mails com seus logs) para um servidor externo sem a sua permissão.
+
+2. Mantenha Seu Sistema e Softwares Atualizados
+
+* Muitos keyloggers exploram vulnerabilidades (bugs de segurança) em sistemas operacionais desatualizados ou navegadores e aplicativos antigos. Ative as atualizações automáticas para o seu sistema operacional (Windows, macOS, Linux) e todos os seus softwares.
+
+3. Seja Vigilante com Phishing e Downloads
+
+* Anexos de E-mail: Nunca abra anexos ou clique em links em e-mails suspeitos ou não solicitados. O método mais comum de infecção por keylogger é o usuário ser enganado e executar o arquivo malicioso por conta própria.
+
+* Fontes de Software: Baixe programas apenas de sites oficiais e fontes confiáveis. Evite sites de download pirata ou de terceiros que empacotam instaladores com software indesejado.
+
+4. Utilize um Gerenciador de Senhas
+
+* Gerenciadores de senhas (como 1Password, LastPass, Bitwarden) preenchem automaticamente suas credenciais. Isso evita que você digite a senha manualmente, tornando o keylogger inútil para capturar essas informações específicas, pois a digitação física não ocorre.
+
+5. Ative a Autenticação de Dois Fatores (2FA)
+
+* Sempre que disponível, ative a 2FA ou MFA (Autenticação Multifator) em suas contas mais importantes (e-mail, banco, redes sociais). Mesmo que um criminoso consiga sua senha através de um keylogger, ele ainda precisará de um segundo código (geralmente enviado para o seu celular) para acessar a conta.
+
+6. Considere o Uso de Teclados Virtuais
+
+* Para acessar sites bancários ou inserir senhas críticas em um computador público ou não confiável, utilize o teclado virtual (on-screen keyboard) fornecido pelo próprio site ou pelo sistema operacional. Clicar nas teclas com o mouse impede a captura do pressionamento de tecla físico.
